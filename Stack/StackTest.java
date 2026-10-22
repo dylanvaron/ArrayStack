@@ -27,10 +27,9 @@ public class StackTest<T>
         testStack("ArrayStack");
         arrayFailed = failed;
 
-        //I dont have linked stack yet. Idk what to do so I just disabled it
-        /*failed = false;
+        failed = false;
         testStack("LinkedStack");     
-        linkedFailed = failed;*/
+        linkedFailed = failed;
         
         if(arrayFailed /*|| linkedFailed*/)
             System.out.println("Bummer, you have not finished the Stack assignment.  Try again.");
@@ -104,9 +103,7 @@ public class StackTest<T>
             if(type.equals("ArrayStack"))
                 stack = new ArrayStack<Integer>();
             else
-                //I dont have the LinkedStack, so im just disabling it for now
-                //stack = new LinkedStack<Integer>();
-                return;
+                stack = new LinkedStack<Integer>();
             c = Class.forName(type);
         }
         catch(ClassNotFoundException e)

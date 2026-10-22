@@ -24,7 +24,7 @@ public class LinkedStack<T> implements StackInterface<T> {
             throw new StackUnderflowException("Tried to peek with no objects in the stack.");
         }
         else {
-            return head.getLink().getInfo();
+            return head.getInfo();
         }
     }
     
@@ -35,33 +35,46 @@ public class LinkedStack<T> implements StackInterface<T> {
             throw new StackUnderflowException("Tried to pop with no objects in the stack.");
         }
         else {
-            LLNode<T> temp = head.getLink();
-            head.setLink(temp.getLink());
-            return temp;
+            T item = head.getInfo();
+            head = head.getLink();
+            size--;
+            return item;
         }
     }
     
     // pushes an item onto the top of this stack
     public T push(T item) {
-        stack.add(item);
+        LLNode<T> newNode = new LLNode<T>(item);
+        newNode.setLink(head);
+        head = newNode;
+        size++;
         return item;
     }
         
     // removes all of the elements from this stack
     public void clear() {
-        stack.clear();
+        head = new LLNode<>(null);
+        size = 0;
     }
     
     // returns the 1 based position where an object is on this stack
     // note: when the method ends, the stack is the same as it was at the start
+    
     public int search(Object o) {
-        int index = stack.indexOf((T)o);
+        LLNode<T> current = head;
 
-        if(index == -1) {
-            return -1;
+        int position = 1;
+
+        while (current != null && position <= size) {
+            if (java.util.Objects.equals(current.getInfo(), o)) {
+                return position;
+            }
+
+            current = current.getLink();
+            position++;
         }
-        else {
-            return stack.size() - index;
-        }
+
+        return -1;
     }
+
 }
